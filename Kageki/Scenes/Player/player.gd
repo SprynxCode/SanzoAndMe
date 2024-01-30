@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const WALK_FORCE = 600
+const WALK_FORCE = 700
 const WALK_MAX_SPEED = 500
 const STOP_FORCE = 2300
 const JUMP_SPEED = 400
@@ -14,10 +14,10 @@ func _physics_process(delta):
 	# Horizontal movement code. First, get the player's input.
 	var walk = WALK_FORCE * (Input.get_axis(&"move_left", &"move_right")) 
 	if Input.is_action_pressed("move_left")  and velocity.x > 0:
-		velocity.x = -200
+		velocity.x = -50
 		
 	if Input.is_action_pressed("move_right") and velocity.x < 0:
-		velocity.x = 200
+		velocity.x = 50
 		
 	#attack
 	if Input.is_action_just_pressed("attack"):
@@ -48,10 +48,9 @@ func perform_attack():
 	print("attack")
 	
 func _ready():
-	attack_hittbox = $AttackHitbox
-	attack_hitbox.set.collision_layer_bit(1, true)
-	attack_hitbox.set
+	#attack_hittbox = $AttackHitbox
+	#attack_hitbox.set.collision_layer_bit(1, true)
+	#attack_hitbox.set
+	print(" ")
 	
-		
-		
-		
+	
