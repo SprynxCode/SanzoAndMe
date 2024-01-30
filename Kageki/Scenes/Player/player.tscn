@@ -1,33 +1,70 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7e2hcjqhbtl"]
+[gd_scene load_steps=7 format=3 uid="uid://b7e2hcjqhbtl"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_d7rhq"]
 [ext_resource type="Texture2D" uid="uid://b72maoaht7426" path="res://Scenes/Player/practicing.png" id="2_6mfmh"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8a5ww"]
-radius = 32.0624
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2w53v"]
+radius = 26.0
+height = 86.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jh3s5"]
-size = Vector2(46.6849, 85.8265)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7isvb"]
+size = Vector2(85, 100)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_unnwm"]
-size = Vector2(83, 86)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jub3m"]
+size = Vector2(77, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stf1o"]
+size = Vector2(73, 102)
 
 [node name="Character" type="CharacterBody2D"]
+collision_mask = 6
 script = ExtResource("1_d7rhq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_8a5ww")
+position = Vector2(1, -8)
+shape = SubResource("CapsuleShape2D_2w53v")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 position = Vector2(9.53674e-07, 9.53674e-07)
 scale = Vector2(0.130921, 0.130921)
 texture = ExtResource("2_6mfmh")
 
-[node name="RightCollision" type="CollisionShape2D" parent="."]
-position = Vector2(45.0559, 4.39743)
-scale = Vector2(1.80169, 1.01608)
-shape = SubResource("RectangleShape2D_jh3s5")
-
-[node name="LeftCollision" type="CollisionShape2D" parent="."]
+[node name="LeftCollision" type="Area2D" parent="."]
 position = Vector2(-43.5, 4)
-shape = SubResource("RectangleShape2D_unnwm")
+collision_mask = 2
+
+[node name="LeftShape" type="CollisionShape2D" parent="LeftCollision"]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(5.5, -12)
+shape = SubResource("RectangleShape2D_7isvb")
+
+[node name="RightCollision" type="Area2D" parent="."]
+position = Vector2(-65, -20)
+collision_mask = 2
+
+[node name="RightShape" type="CollisionShape2D" parent="RightCollision"]
+position = Vector2(107, 11)
+shape = SubResource("RectangleShape2D_jub3m")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-0.5, -8)
+shape = SubResource("RectangleShape2D_stf1o")
+
+[node name="HurtCD" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="area_entered" from="LeftCollision" to="." method="_on_left_collision_area_entered"]
+[connection signal="area_exited" from="LeftCollision" to="." method="_on_left_collision_area_exited"]
+[connection signal="area_entered" from="RightCollision" to="." method="_on_right_collision_area_entered"]
+[connection signal="area_exited" from="RightCollision" to="." method="_on_right_collision_area_exited"]
+[connection signal="body_entered" from="RightCollision" to="." method="_on_right_collision_body_entered"]
+[connection signal="body_exited" from="RightCollision" to="." method="_on_right_collision_body_exited"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_exited" from="Hurtbox" to="." method="_on_hurtbox_area_exited"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="HurtCD" to="." method="_on_hurt_cd_timeout"]

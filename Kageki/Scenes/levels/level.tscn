@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://3wjjxl5nf4m0"]
+[gd_scene load_steps=5 format=3 uid="uid://3wjjxl5nf4m0"]
 
 [ext_resource type="PackedScene" uid="uid://b7e2hcjqhbtl" path="res://Scenes/Player/player.tscn" id="1_1xpo5"]
+[ext_resource type="Texture2D" uid="uid://dpjoxqi1fitk8" path="res://practicing.png" id="2_qskp6"]
 [ext_resource type="PackedScene" uid="uid://bxt2ui35o32xs" path="res://Scenes/Enemy/enemy.tscn" id="2_vl6j4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_twx5h"]
@@ -13,9 +14,17 @@ position = Vector2(106, 169)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(241, 252)
+collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+modulate = Color(1, 0.282353, 1, 1)
 shape = SubResource("RectangleShape2D_twx5h")
+debug_color = Color(0.372549, 0.537255, 0.8, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(-1.5, -0.12499)
+scale = Vector2(5.17708, 0.381579)
+texture = ExtResource("2_qskp6")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_vl6j4")]
-position = Vector2(353, 170)
+position = Vector2(238, 173)

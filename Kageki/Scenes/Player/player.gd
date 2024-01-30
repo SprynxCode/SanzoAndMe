@@ -14,18 +14,22 @@ var attack_hitbox: Area2D
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
+
 	#Movement + Jump
 	movement(delta)
 	#Attack Script
-	perform_attack(delta)
+	enemy_attack()
+	player_attack()
 
 	if Input.is_action_just_pressed("move_left"):
 		DIRECTION_FACING = -1
-		print("facing left")
+		$LeftCollision.monitoring = true
+		$RightCollision.monitoring = false
 		$CollisionShape2D/Sprite2D.flip_h = true
 	if Input.is_action_just_pressed("move_right"):
 		DIRECTION_FACING = 1
-		print("facing right")
+		$LeftCollision.monitoring = false
+		$RightCollision.monitoring = true
 		$CollisionShape2D/Sprite2D.flip_h = false
 func movement(delta):
 		var walk = WALK_FORCE * (Input.get_axis(&"move_left", &"move_right")) 
@@ -55,15 +59,48 @@ func movement(delta):
 		# Check for jumping. is_on_floor() must be called after movement code.
 		if is_on_floor() and Input.is_action_just_pressed(&"jump"):
 			velocity.y = -JUMP_SPEED
+			
+#####
+var player_inrange = false
+var player_HurtCD = true
+var enemy_inrange = false
 
-func perform_attack(delta):
-	if Input.is_action_just_pressed("attack"):
-		print("attack")
+func enemy_attack():
+	if player_inrange and player_HurtCD:
+		print("You are being hit!")
+		player_HurtCD = false
+		$HurtCD.start()
 	
-func _ready():
-	#attack_hittbox = $AttackHitbox
-	#attack_hitbox.set.collision_layer_bit(1, true)
-	#attack_hitbox.set
-	print(" ")
+func _on_hurtbox_area_entered(area):
+	print("Player is in enemy range")
+	player_inrange = true
 
-	
+func _on_hurtbox_area_exited(area):
+	print("Player is outside enemy range")
+	player_inrange = false
+
+######
+
+func player_attack():
+	if enemy_inrange and Input.is_action_just_pressed("attack"):
+		print("Enemy attacked!")
+
+func _on_hurt_cd_timeout():
+	print("Cooldown done")
+	player_HurtCD = true
+
+func _on_right_collision_area_entered(area):
+	print("In range")
+	enemy_inrange = true
+
+func _on_right_collision_area_exited(area):
+	print("Out of range")
+	enemy_inrange = false
+
+func _on_left_collision_area_entered(area):
+	print("In range")
+	enemy_inrange = true
+
+func _on_left_collision_area_exited(area):
+	print("In range")
+	enemy_inrange = true
