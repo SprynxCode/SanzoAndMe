@@ -1,19 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7e2hcjqhbtl"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_d7rhq"]
-[ext_resource type="Texture2D" uid="uid://cqfevau40hbp5" path="res://dodge_the_creeps_2d_assets/art/playerGrey_up1.png" id="1_sd1qg"]
+[ext_resource type="Texture2D" uid="uid://b72maoaht7426" path="res://Scenes/Player/practicing.png" id="2_6mfmh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8a5ww"]
 radius = 32.0624
 
 [node name="Character" type="CharacterBody2D"]
+position = Vector2(41, 39)
 script = ExtResource("1_d7rhq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8a5ww")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_sd1qg")
+position = Vector2(9.53674e-07, 9.53674e-07)
+scale = Vector2(0.130921, 0.130921)
+texture = ExtResource("2_6mfmh")
 
 [node name="AttackHitbox" type="CollisionShape2D" parent="."]
