@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+var player_inrange = false
+var player_HurtCD = true
+var enemy_inrange = false
+
 const WALK_FORCE = 700
 var WALK_MAX_SPEED = 500
 const STOP_FORCE = 2300
@@ -17,11 +21,11 @@ func _ready():
 	set_process(true)
 	
 func _physics_process(delta):
-
-	#Movement + Jump
 	movement(delta)
+	print(velocity.x)
+	
 	#Attack Script
-	enemy_attack()
+	enemy_attack(delta)
 	player_attack()
 
 	if Input.is_action_just_pressed("move_left"):
@@ -35,9 +39,6 @@ func _physics_process(delta):
 		$RightCollision.monitoring = true
 		$CollisionShape2D/Sprite2D.flip_h = false
 
-	
-func movementTest(delta):
-	pass
 
 func movement(delta):
 		var walk = WALK_FORCE * (Input.get_axis(&"move_left", &"move_right")) 
@@ -69,12 +70,10 @@ func movement(delta):
 			velocity.y = -JUMP_SPEED
 			
 #####-----------------------------------------------------
-var player_inrange = false
-var player_HurtCD = true
-var enemy_inrange = false
 
 
-func enemy_attack():
+
+func enemy_attack(delta):
 	var player = get_parent().get_node("Character")
 	var player_pos = player.global_position
 	var enemy = get_parent().get_node("Enemy")
@@ -82,12 +81,10 @@ func enemy_attack():
 	if player_inrange and player_HurtCD:
 		print("You are being hit!")
 		if player_pos.x > enemy_pos.x:
-			velocity.x += 1000
-			WALK_MAX_SPEED = 0
+			velocity.x += 3000
 			pass
 		elif player_pos.x < enemy_pos.x:
-			velocity.x -= 1000
-			WALK_MAX_SPEED = 0
+			velocity.x -= 3000  
 			pass
 		player_HurtCD = false
 		$HurtCD.start()
