@@ -10,7 +10,7 @@ size = Vector2(498, 33)
 [node name="Node2D" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource("1_1xpo5")]
-position = Vector2(106, 169)
+position = Vector2(145, 172)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(241, 252)
@@ -26,5 +26,5 @@ position = Vector2(-1.5, -0.12499)
 scale = Vector2(5.17708, 0.381579)
 texture = ExtResource("2_qskp6")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("2_vl6j4")]
-position = Vector2(238, 173)
+[node name="Enemy" parent="." instance=ExtResource("2_vl6j4")]
+position = Vector2(318, 161)

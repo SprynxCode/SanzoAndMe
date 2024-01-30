@@ -1,18 +1,21 @@
 extends CharacterBody2D
 
 const WALK_FORCE = 700
-const WALK_MAX_SPEED = 500
+var WALK_MAX_SPEED = 500
 const STOP_FORCE = 2300
 const JUMP_SPEED = 400
 const ATTACK_FORCE = 100
 #1 = right, -1 = left
 var DIRECTION_FACING = 1
 
-
 var attack_hitbox: Area2D
-
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var sprite_node
 
+func _ready():
+	sprite_node = get_node("Character")
+	set_process(true)
+	
 func _physics_process(delta):
 
 	#Movement + Jump
@@ -31,6 +34,11 @@ func _physics_process(delta):
 		$LeftCollision.monitoring = false
 		$RightCollision.monitoring = true
 		$CollisionShape2D/Sprite2D.flip_h = false
+
+	
+func movementTest(delta):
+	pass
+
 func movement(delta):
 		var walk = WALK_FORCE * (Input.get_axis(&"move_left", &"move_right")) 
 		if Input.is_action_pressed("move_left")  and velocity.x > 0:
@@ -65,9 +73,22 @@ var player_inrange = false
 var player_HurtCD = true
 var enemy_inrange = false
 
+
 func enemy_attack():
+	var player = get_parent().get_node("Character")
+	var player_pos = player.global_position
+	var enemy = get_parent().get_node("Enemy")
+	var enemy_pos = enemy.global_position
 	if player_inrange and player_HurtCD:
 		print("You are being hit!")
+		if player_pos.x > enemy_pos.x:
+			velocity.x += 1000
+			WALK_MAX_SPEED = 0
+			pass
+		elif player_pos.x < enemy_pos.x:
+			velocity.x -= 1000
+			WALK_MAX_SPEED = 0
+			pass
 		player_HurtCD = false
 		$HurtCD.start()
 	
@@ -87,6 +108,7 @@ func player_attack():
 
 func _on_hurt_cd_timeout():
 	print("Cooldown done")
+	WALK_MAX_SPEED = 500
 	player_HurtCD = true
 
 func _on_right_collision_area_entered(area):

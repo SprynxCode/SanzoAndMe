@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://0ca3t3wnthtj" path="res://Scenes/Enemy/Enemy platform.png" id="2_46e8c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exa8p"]
-size = Vector2(2.32353, 10.8432)
+size = Vector2(2.32353, 0.772445)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_31lwn"]
 radius = 26.0
@@ -21,7 +21,6 @@ scale = Vector2(0.920002, 0.945225)
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_3mrne")
-metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.99997, 32)
@@ -29,13 +28,14 @@ scale = Vector2(0.324777, 0.324777)
 texture = ExtResource("2_46e8c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.500063, 25)
+position = Vector2(-0.500145, 57.5067)
 rotation = -3.14159
 scale = Vector2(6.45567, 6.45567)
 shape = SubResource("RectangleShape2D_exa8p")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 2
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_31lwn")
@@ -43,15 +43,19 @@ shape = SubResource("CapsuleShape2D_31lwn")
 [node name="HitLEFT" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitLEFT"]
-position = Vector2(-30.9782, 2.1159)
+position = Vector2(-43.4782, 1.05795)
 shape = SubResource("RectangleShape2D_4y5cp")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="HitRight" type="Area2D" parent="."]
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(27.7173, 1.05795)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitRight"]
+position = Vector2(42.3912, 1.05795)
 scale = Vector2(0.837071, 0.983496)
 shape = SubResource("RectangleShape2D_1y4wo")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_exited" from="Hurtbox" to="." method="_on_hurtbox_area_exited"]
 [connection signal="area_entered" from="HitLEFT" to="." method="_on_hit_left_area_entered"]
+[connection signal="area_entered" from="HitRight" to="." method="_on_hit_right_area_entered"]
+[connection signal="area_entered" from="HitRight" to="." method="_on_area_2d_area_entered"]
