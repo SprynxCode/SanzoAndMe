@@ -22,10 +22,11 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("move_left"):
 		DIRECTION_FACING = -1
 		print("facing left")
+		$CollisionShape2D/Sprite2D.flip_h = true
 	if Input.is_action_just_pressed("move_right"):
 		DIRECTION_FACING = 1
 		print("facing right")
-		
+		$CollisionShape2D/Sprite2D.flip_h = false
 func movement(delta):
 		var walk = WALK_FORCE * (Input.get_axis(&"move_left", &"move_right")) 
 		if Input.is_action_pressed("move_left")  and velocity.x > 0:
