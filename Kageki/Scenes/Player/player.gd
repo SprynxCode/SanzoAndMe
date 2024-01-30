@@ -60,7 +60,7 @@ func movement(delta):
 		if is_on_floor() and Input.is_action_just_pressed(&"jump"):
 			velocity.y = -JUMP_SPEED
 			
-#####
+#####-----------------------------------------------------
 var player_inrange = false
 var player_HurtCD = true
 var enemy_inrange = false
@@ -103,4 +103,4 @@ func _on_left_collision_area_entered(area):
 
 func _on_left_collision_area_exited(area):
 	print("In range")
-	enemy_inrange = true
+	enemy_inrange = false
