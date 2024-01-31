@@ -17,7 +17,7 @@ size = Vector2(77, 102)
 size = Vector2(73, 102)
 
 [node name="Character" type="CharacterBody2D"]
-collision_mask = 4
+collision_mask = 6
 script = ExtResource("1_d7rhq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -57,8 +57,6 @@ shape = SubResource("RectangleShape2D_stf1o")
 [node name="HurtCD" type="Timer" parent="."]
 wait_time = 0.001
 one_shot = true
-
-[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="area_entered" from="LeftCollision" to="." method="_on_left_collision_area_entered"]
 [connection signal="area_exited" from="LeftCollision" to="." method="_on_left_collision_area_exited"]
