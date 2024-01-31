@@ -57,8 +57,6 @@ func movement(delta):
 		if velocity.x > 0:
 			velocity.x = walk
 			
-		if Input.is_action_pressed("move_right") and velocity.x < 0:
-			velocity.x = walk
 		
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
@@ -82,8 +80,8 @@ func movement(delta):
 			velocity.y = -JUMP_SPEED
 
 func _on_hit_left_area_entered(area):
-	print("Hit is enemy is")
+	print("Hit  left")
 
 func _on_hit_right_area_entered(area):
-	print("Hit is enemy is")
+	print("Hit rigght")
 
