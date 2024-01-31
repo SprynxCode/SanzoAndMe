@@ -7,7 +7,7 @@ var enemy_inrange = false
 const WALK_FORCE = 700
 var WALK_MAX_SPEED = 500
 const STOP_FORCE = 2300
-const JUMP_SPEED = 400
+const JUMP_SPEED = 500
 const ATTACK_FORCE = 100
 #1 = right, -1 = left
 var DIRECTION_FACING = 1
@@ -22,7 +22,7 @@ func _ready():
 	
 func _physics_process(delta):
 	movement(delta)
-	print(velocity.x)
+	#print(velocity.x)
 	
 	#Attack Script
 	enemy_attack(delta)
@@ -102,6 +102,8 @@ func _on_hurtbox_area_exited(area):
 func player_attack():
 	if enemy_inrange and Input.is_action_just_pressed("attack"):
 		print("Enemy attacked!")
+	elif Input.is_action_just_pressed("attack"):
+		print("Attack press")
 
 func _on_hurt_cd_timeout():
 	print("Cooldown done")

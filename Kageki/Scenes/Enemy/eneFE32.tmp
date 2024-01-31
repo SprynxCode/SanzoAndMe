@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://0ca3t3wnthtj" path="res://Scenes/Enemy/Enemy platform.png" id="2_46e8c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exa8p"]
-size = Vector2(9.91376, 17.6589)
+size = Vector2(2.32353, 0.772445)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_31lwn"]
 radius = 26.0
@@ -19,6 +19,7 @@ size = Vector2(31.2104, 106.643)
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_3mrne")
 metadata/_edit_group_ = true
 
@@ -37,7 +38,7 @@ position = Vector2(-2, -12)
 scale = Vector2(5.4, 5.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.99998, 3.00002)
+position = Vector2(-0.500145, 57.5067)
 rotation = -3.14159
 scale = Vector2(6.45567, 6.45567)
 shape = SubResource("RectangleShape2D_exa8p")

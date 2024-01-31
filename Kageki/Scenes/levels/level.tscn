@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bxt2ui35o32xs" path="res://Scenes/Enemy/enemy.tscn" id="2_vl6j4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_twx5h"]
-size = Vector2(498, 33)
+size = Vector2(1077, 33)
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,11 +13,13 @@ size = Vector2(498, 33)
 position = Vector2(145, 172)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(241, 252)
+position = Vector2(143, 259)
 collision_layer = 5
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 modulate = Color(1, 0.282353, 1, 1)
+position = Vector2(289.5, 0)
 shape = SubResource("RectangleShape2D_twx5h")
 debug_color = Color(0.372549, 0.537255, 0.8, 0.419608)
 
@@ -27,4 +29,4 @@ scale = Vector2(5.17708, 0.381579)
 texture = ExtResource("2_qskp6")
 
 [node name="Enemy" parent="." instance=ExtResource("2_vl6j4")]
-position = Vector2(318, 161)
+position = Vector2(444, 212)

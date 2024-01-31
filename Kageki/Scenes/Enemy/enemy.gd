@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 const WALK_FORCE = 100
 const WALK_MAX_SPEED = 55
 const STOP_FORCE = 2300

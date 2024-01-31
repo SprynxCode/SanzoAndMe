@@ -58,6 +58,8 @@ shape = SubResource("RectangleShape2D_stf1o")
 wait_time = 0.001
 one_shot = true
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [connection signal="area_entered" from="LeftCollision" to="." method="_on_left_collision_area_entered"]
 [connection signal="area_exited" from="LeftCollision" to="." method="_on_left_collision_area_exited"]
 [connection signal="area_entered" from="RightCollision" to="." method="_on_right_collision_area_entered"]
