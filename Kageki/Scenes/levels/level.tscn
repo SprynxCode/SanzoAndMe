@@ -1,16 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://3wjjxl5nf4m0"]
+[gd_scene load_steps=7 format=3 uid="uid://3wjjxl5nf4m0"]
 
 [ext_resource type="PackedScene" uid="uid://b7e2hcjqhbtl" path="res://Scenes/Player/player.tscn" id="1_1xpo5"]
-[ext_resource type="Texture2D" uid="uid://cc1fo02lsjju8" path="res://icon.svg" id="2_n4758"]
 [ext_resource type="PackedScene" uid="uid://bxt2ui35o32xs" path="res://Scenes/Enemy/enemy.tscn" id="2_vl6j4"]
+[ext_resource type="Texture2D" uid="uid://h605mtu58tkh" path="res://backgorunds/Assets.png" id="4_63c7l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_twx5h"]
 size = Vector2(3719, 20)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yl5ng"]
+texture = ExtResource("4_63c7l")
+2:0/size_in_atlas = Vector2i(8, 18)
+2:0/0 = 0
+10:0/size_in_atlas = Vector2i(8, 6)
+10:0/0 = 0
+13:16/size_in_atlas = Vector2i(6, 6)
+13:16/0 = 0
+7:18/size_in_atlas = Vector2i(6, 4)
+7:18/0 = 0
+3:19/size_in_atlas = Vector2i(4, 3)
+3:19/0 = 0
+0:19/size_in_atlas = Vector2i(3, 3)
+0:19/0 = 0
+11:12/size_in_atlas = Vector2i(11, 3)
+11:12/0 = 0
+17:6/size_in_atlas = Vector2i(2, 2)
+17:6/0 = 0
+20:15/size_in_atlas = Vector2i(8, 7)
+20:15/0 = 0
+22:12/size_in_atlas = Vector2i(6, 3)
+22:12/0 = 0
+21:5/size_in_atlas = Vector2i(7, 7)
+21:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ibjds"]
+sources/0 = SubResource("TileSetAtlasSource_yl5ng")
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Character" parent="." instance=ExtResource("1_1xpo5")]
-position = Vector2(102, 242)
+position = Vector2(110, 247)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(142, 296)
@@ -24,10 +52,17 @@ position = Vector2(289.5, 0)
 shape = SubResource("RectangleShape2D_twx5h")
 debug_color = Color(0.372549, 0.537255, 0.8, 0.419608)
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D"]
-position = Vector2(-127, 28.5)
-scale = Vector2(17.8828, 0.554688)
-texture = ExtResource("2_n4758")
-
 [node name="Enemy" parent="." instance=ExtResource("2_vl6j4")]
+visible = false
 position = Vector2(444, 212)
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_ibjds")
+format = 2
+layer_0/tile_data = PackedInt32Array(1245174, 720896, 12, 655354, 131072, 0, 1179649, 720896, 12, 196610, 655360, 0, 1179660, 720896, 12, 1048593, 196608, 19, 1179671, 720896, 12, 720921, 131072, 0, 327713, 655360, 0, 1179682, 720896, 12, 1048611, 458752, 18, 1048616, 196608, 19, 1179693, 720896, 12, 720942, 131072, 0, 1179704, 720896, 12, 917511, 1310720, 15, 589832, 1441792, 12, 262152, 1376256, 5)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
