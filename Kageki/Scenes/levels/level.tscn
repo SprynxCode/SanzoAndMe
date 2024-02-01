@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://3wjjxl5nf4m0"]
+[gd_scene load_steps=5 format=3 uid="uid://3wjjxl5nf4m0"]
 
 [ext_resource type="PackedScene" uid="uid://b7e2hcjqhbtl" path="res://Scenes/Player/player.tscn" id="1_1xpo5"]
-[ext_resource type="Script" path="res://Scenes/levels/Camera2D.gd" id="2_mo8ls"]
 [ext_resource type="Texture2D" uid="uid://cc1fo02lsjju8" path="res://icon.svg" id="2_n4758"]
 [ext_resource type="PackedScene" uid="uid://bxt2ui35o32xs" path="res://Scenes/Enemy/enemy.tscn" id="2_vl6j4"]
 
@@ -12,10 +11,6 @@ size = Vector2(3719, 20)
 
 [node name="Character" parent="." instance=ExtResource("1_1xpo5")]
 position = Vector2(102, 242)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(102, 242)
-script = ExtResource("2_mo8ls")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(142, 296)
