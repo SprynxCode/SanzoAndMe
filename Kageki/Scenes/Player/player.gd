@@ -16,6 +16,8 @@ var attack_hitbox: Area2D
 @onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sprite_node
 
+
+
 func _ready():
 	sprite_node = get_node("Character")
 	set_process(true)

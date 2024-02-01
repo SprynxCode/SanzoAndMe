@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7e2hcjqhbtl"]
+[gd_scene load_steps=7 format=3 uid="uid://b7e2hcjqhbtl"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_d7rhq"]
 [ext_resource type="Texture2D" uid="uid://b72maoaht7426" path="res://Scenes/Player/practicing.png" id="2_6mfmh"]
-[ext_resource type="Script" path="res://Scenes/Player/PlayerCamera2D.gd" id="2_u12y3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2w53v"]
 radius = 26.0
@@ -21,11 +20,7 @@ size = Vector2(73, 102)
 collision_mask = 6
 script = ExtResource("1_d7rhq")
 
-[node name="PlayerCamera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-script = ExtResource("2_u12y3")
-smoothing_enabled = true
-smoothing_distance = 4
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -8)
