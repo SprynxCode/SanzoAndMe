@@ -7,16 +7,18 @@ var testing : float
 func _ready():
 	player = $".." # Replace with the actual path to your player node
 	
-func _process(delta):
-	print(player.is_on_floor())
-	update_camera_position()
 func update_camera_position():
 	if !player.is_on_floor():
-		self.global_position = Vector2(self.global_position.x,testing)
+		self.position_smoothing_speed = 5
+		print(self.position_smoothing_speed)
 	elif player.is_on_floor():
-		print("on floor")
-		testing = player.global_position.y
-		self.global_position = Vector2(self.global_position.x,testing)
+		self.position_smoothing_speed = 2
+		print(self.position_smoothing_speed)
+		
+		
+func _process(delta):#
+	update_camera_position()
+		
 	# Vertical camera position does not follow the player's y-coordinate during a jump
 	#if is_on_floor(): # Replace with your actual condition for checking if the player is jumping
 		#target_position.y = clamp(player.global_position.y, min_y, max_y)

@@ -77,7 +77,6 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(300, 241.429)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dnjng")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="StaticBody2D2"]
@@ -85,7 +84,6 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2/StaticBody2D2"]
 position = Vector2(404.286, 208.571)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dnjng")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="StaticBody2D2/StaticBody2D2"]
@@ -93,7 +91,6 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2/StaticBody2D2/StaticBody2D2"]
 position = Vector2(461.429, 178.571)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dnjng")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="StaticBody2D2/StaticBody2D2/StaticBody2D2"]
@@ -101,5 +98,4 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2/StaticBody2D2/StaticBody2D2/StaticBody2D2"]
 position = Vector2(701.429, 122.857)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dnjng")
