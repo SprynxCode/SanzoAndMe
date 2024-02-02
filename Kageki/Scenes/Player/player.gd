@@ -5,7 +5,7 @@ var player_HurtCD = true
 var enemy_inrange = false
 
 const WALK_FORCE = 500
-var WALK_MAX_SPEED = 400
+var WALK_MAX_SPEED = 300
 const STOP_FORCE = 2300
 const JUMP_SPEED = 440
 const ATTACK_FORCE = 100
@@ -43,13 +43,14 @@ func _physics_process(delta):
 
 
 func movement(delta):
+		
 		var walk = WALK_FORCE * (Input.get_axis(&"move_left", &"move_right")) 
 		if Input.is_action_pressed("move_left")  and velocity.x > 0:
 			velocity.x = -50
-			
+			pass
 		if Input.is_action_pressed("move_right") and velocity.x < 0:
 			velocity.x = 50
-		
+			pass
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
 			# The velocity, slowed down a bit, and then reassigned.
@@ -69,7 +70,7 @@ func movement(delta):
 
 		# Check for jumping. is_on_floor() must be called after movement code.
 		if is_on_floor() and Input.is_action_just_pressed(&"jump"):
-			velocity.y = -JUMP_SPEED
+			velocity.y = -JUMP_SPEED * 1
 			
 #####-----------------------------------------------------
 

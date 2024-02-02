@@ -1,24 +1,23 @@
 extends Camera2D
-#this code is supposed to be fot jittering but I can't tell
+#this code is supposed to be for jittering but I can't tell
 #if it works due to the print statement not working
-@export_category("Follow Character")
-@export var player : CharacterBody2D
-
-@export_category("Camera Smoothing")
-@export var smoothing_enabled : bool
-@export_range(1,10) var smoothing_distance : int = 8
-
-func _physics_process(delta):
-	var weight : float
+var player : Node2D
+var testingx : float
+var testing : float
+func _ready():
+	player = $".." # Replace with the actual path to your player node
 	
-	if player != null:
-		var camera_position : Vector2
-	
-		if smoothing_enabled:
-			weight = float(11 - smoothing_distance) / 100
-			camera_position = lerp(global_position, player.global_position, weight)
-		else:
-			camera_position = player.global_position
-		
-		print("Weight: ", weight, "Camera Position: ", camera_position, "Camera Pixel Floor", camera_position.floor())
-		
+func _process(delta):
+	print(player.is_on_floor())
+	update_camera_position()
+func update_camera_position():
+	if !player.is_on_floor():
+		self.global_position = Vector2(self.global_position.x,testing)
+	elif player.is_on_floor():
+		print("on floor")
+		testing = player.global_position.y
+		self.global_position = Vector2(self.global_position.x,testing)
+	# Vertical camera position does not follow the player's y-coordinate during a jump
+	#if is_on_floor(): # Replace with your actual condition for checking if the player is jumping
+		#target_position.y = clamp(player.global_position.y, min_y, max_y)
+

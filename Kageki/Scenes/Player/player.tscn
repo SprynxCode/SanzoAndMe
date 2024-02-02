@@ -25,8 +25,6 @@ script = ExtResource("1_d7rhq")
 offset = Vector2(0, -24)
 position_smoothing_enabled = true
 script = ExtResource("2_u12y3")
-smoothing_enabled = true
-smoothing_distance = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -8)
@@ -63,7 +61,7 @@ position = Vector2(-0.5, -8)
 shape = SubResource("RectangleShape2D_stf1o")
 
 [node name="HurtCD" type="Timer" parent="."]
-wait_time = 0.001
+wait_time = 2.69
 one_shot = true
 
 [connection signal="area_entered" from="LeftCollision" to="." method="_on_left_collision_area_entered"]

@@ -66,5 +66,5 @@ shape = SubResource("RectangleShape2D_1y4wo")
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_exited" from="Hurtbox" to="." method="_on_hurtbox_area_exited"]
 [connection signal="area_entered" from="HitLEFT" to="." method="_on_hit_left_area_entered"]
-[connection signal="area_entered" from="HitRight" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_entered" from="HitRight" to="." method="_on_hit_right_area_entered"]
+[connection signal="area_entered" from="HitRight" to="." method="_on_area_2d_area_entered"]
