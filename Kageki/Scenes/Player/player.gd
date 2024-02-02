@@ -4,10 +4,10 @@ var player_inrange = false
 var player_HurtCD = true
 var enemy_inrange = false
 
-const WALK_FORCE = 700
-var WALK_MAX_SPEED = 500
+const WALK_FORCE = 500
+var WALK_MAX_SPEED = 400
 const STOP_FORCE = 2300
-const JUMP_SPEED = 500
+const JUMP_SPEED = 440
 const ATTACK_FORCE = 100
 #1 = right, -1 = left
 var DIRECTION_FACING = 1
