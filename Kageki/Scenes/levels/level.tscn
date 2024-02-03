@@ -76,6 +76,7 @@ layer_0/tile_data = PackedInt32Array(1245174, 720896, 12, 655354, 131072, 0, 117
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
+collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2(-228.571, 141.429)
@@ -87,7 +88,6 @@ collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(300, 18.75)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dnjng")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2/CollisionShape2D"]

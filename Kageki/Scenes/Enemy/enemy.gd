@@ -14,18 +14,36 @@ const HP = 100
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var DIRECTION_FACING = 1
 var sprite_node : Node
+var player
+var enemy
 
-func _process(delta):
-	#GETS THE POSITIONSSSSSSSSSSSSSSSSSS in the SCENEEE
-	
-	var player = get_parent().get_node("Character")
-	var player_pos = player.global_position
-	var enemy = get_parent().get_node("Enemy")
-	var enemy_pos = enemy.global_position
+@export var facing_left : Vector2
+@export var facing_right : Vector2
+@export var hitbox : CollisionShape2D
+signal face_direction (facing_right : bool)
+
+func _ready():
+	player = get_parent().get_node("Character")
+	enemy = get_parent().get_node("Enemy")
+
+func direction_update():
+	#UPDATES THE DIRECTIONSSHJSHSHSHSSHShysSWHYGWh
 	if velocity.x > 0:
 		$Sprite2D.flip_h = true
+		enemy.hitbox.position = enemy.facing_right
 	if velocity.x < 0:
 		$Sprite2D.flip_h = false
+		enemy.hitbox.position = enemy.facing_left
+		
+	
+func _process(delta):
+	#GETS THE POSITIONSSSSSSSSSSSSSSSSSS in the SCENEEE
+	var player_pos = player.global_position
+	var enemy_pos = enemy.global_position
+	
+	
+	direction_update()
+
 	#####	
 	if player_pos.x > enemy_pos.x and (player_pos.x - enemy_pos.x) > 30:
 		velocity.x += 5
@@ -50,7 +68,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	#
-
+	attack()
 	move_and_slide()
 func movement(delta):
 		var walk = WALK_FORCE * DIRECTION_FACING
@@ -78,11 +96,15 @@ func movement(delta):
 		# Check for jumping. is_on_floor() must be called after movement code.
 		if is_on_floor() and Input.is_action_just_pressed(&"jump"):
 			velocity.y = -JUMP_SPEED
-
+var in_range = false
 func _on_hit_left_area_entered(area):
-	HP - 1
-	print("Hit  left")
+	in_range = true
 
-func _on_hit_right_area_entered(area):
-	print("Hit right")
+func _on_attack_area_exited(area):
+	in_range= false
 
+func attack():
+	if player.player_HurtCD == true and in_range:
+		player.player_HurtCD = false
+		player.Health -= 1
+		print("Hit left")

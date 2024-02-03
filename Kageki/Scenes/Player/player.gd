@@ -2,11 +2,11 @@ extends CharacterBody2D
 
 #enemy detects palyer
 var player_inrange = false
-var player_HurtCD = true
+#var player_HurtCD = true
 var enemy_inrange = false
 
 #for jumping
-const wall_jump_pushback = 100
+const wall_jump_pushback = 500
 const wall_slide_gravity = 100
 var is_wall_sliding = false
 const jump_power = -1000
@@ -26,16 +26,32 @@ var DIRECTION_FACING = 1
 #var attack_hitbox: Area2D
 @onready var gravity_attack = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sprite_node
-
+var test
 #player health
-
-var Health = 3
+@export var player_HurtCD: bool = true # if true, can be hurt
+@export var Health: int = 3
+@export var hitboxP : CollisionShape2D
+@export var facing_left : Vector2
+@export var facing_right : Vector2
 
 func _ready():
-	sprite_node = get_node("Character")
+	sprite_node = get_parent().get_node("Character")
 	set_process(true)
 	
+func direction_update():
+	if Input.is_action_just_pressed("move_left"):
+		DIRECTION_FACING = -1
+		sprite_node.hitboxP.position = facing_left
+		$CollisionShape2D/Sprite2D.flip_h = true
+	if Input.is_action_just_pressed("move_right"):
+		sprite_node.hitboxP.position = facing_right
+		DIRECTION_FACING = 1
+		$CollisionShape2D/Sprite2D.flip_h = false
+	
 func _physics_process(delta):
+	
+	
+	direction_update()
 	movement(delta)
 	#print(velocity.x)
 	
@@ -48,26 +64,20 @@ func _physics_process(delta):
 	wall_slide(delta)
 
 #sprite direction when moving
-	if Input.is_action_just_pressed("move_left"):
-		DIRECTION_FACING = -1
-		$LeftCollision.monitoring = true
-		$RightCollision.monitoring = false
-		$CollisionShape2D/Sprite2D.flip_h = true
-	if Input.is_action_just_pressed("move_right"):
-		DIRECTION_FACING = 1
-		$LeftCollision.monitoring = false
-		$RightCollision.monitoring = true
-		$CollisionShape2D/Sprite2D.flip_h = false
+
 
 func _process(delta):
+	pass
 	
-	if Input.is_action_just_pressed("ui_accept"):
-		Health -= 1
-		print(Health)
+	#if Health <= 0:
+		#queue_free()
 		
-	if Health <= 0:
-		queue_free()
-
+func cooldown_start():
+	player_HurtCD = false
+	if player_HurtCD == false:
+		print("coodlown start")
+		$HurtCD.start()
+		
 func movement(delta):
 		
 		var walk = WALK_FORCE * (Input.get_axis(&"move_left", &"move_right")) 
@@ -113,21 +123,21 @@ func enemy_attack(delta):
 	var enemy_pos = enemy.global_position
 	if player_inrange and player_HurtCD:
 		print("You are being hit!")
+		
+		cooldown_start()
 		if player_pos.x > enemy_pos.x:
 			velocity.x += 3000
 			pass
 		elif player_pos.x < enemy_pos.x:
 			velocity.x -= 3000  
 			pass
-		player_HurtCD = false
-		$HurtCD.start()
+		
+		
 	
 func _on_hurtbox_area_entered(area):
-	print("Player is in enemy range")
 	player_inrange = true
 
 func _on_hurtbox_area_exited(area):
-	print("Player is outside enemy range")
 	player_inrange = false
 
 ######
@@ -140,24 +150,16 @@ func player_attack():
 
 func _on_hurt_cd_timeout():
 	print("Cooldown done")
-	WALK_MAX_SPEED = 500
 	player_HurtCD = true
 
+
 func _on_right_collision_area_entered(area):
-	print("In range")
 	enemy_inrange = true
-
+	print("In range")
+	
 func _on_right_collision_area_exited(area):
-	print("Out of range")
 	enemy_inrange = false
-
-func _on_left_collision_area_entered(area):
-	print("In range")
-	enemy_inrange = true
-
-func _on_left_collision_area_exited(area):
-	print("In range")
-	enemy_inrange = false
+	print("out of range")
 
 
 #walljumping and sliding
@@ -190,3 +192,9 @@ func wall_slide(delta):
 		
 #####################
 	
+
+
+
+	
+
+

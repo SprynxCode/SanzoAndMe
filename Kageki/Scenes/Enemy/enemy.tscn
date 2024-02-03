@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxt2ui35o32xs"]
+[gd_scene load_steps=6 format=3 uid="uid://bxt2ui35o32xs"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/enemy.gd" id="1_3mrne"]
 [ext_resource type="Texture2D" uid="uid://0ca3t3wnthtj" path="res://Scenes/Enemy/Enemy platform.png" id="2_46e8c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exa8p"]
-size = Vector2(9.91376, 17.6589)
+size = Vector2(8.67455, 17.6589)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_31lwn"]
 radius = 26.0
@@ -13,58 +13,43 @@ height = 106.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4y5cp"]
 size = Vector2(24.9999, 105.795)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1y4wo"]
-size = Vector2(31.2104, 106.643)
-
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 script = ExtResource("1_3mrne")
-metadata/_edit_group_ = true
+facing_left = Vector2(-43, 0)
+facing_right = Vector2(43, 0)
+hitbox = NodePath("Attack/CollisionShape2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.99997, 32)
 scale = Vector2(0.324777, 0.324777)
 texture = ExtResource("2_46e8c")
 
-[node name="RayCast2D" type="RayCast2D" parent="Sprite2D"]
-position = Vector2(6.15798, -98.5291)
-scale = Vector2(3.07904, 3.07904)
-target_position = Vector2(400, 3)
-
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 position = Vector2(-2, -12)
 scale = Vector2(5.4, 5.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.99998, 3.00002)
+position = Vector2(-0.000142813, 3.00005)
 rotation = -3.14159
 scale = Vector2(6.45567, 6.45567)
 shape = SubResource("RectangleShape2D_exa8p")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CapsuleShape2D_31lwn")
 
-[node name="HitLEFT" type="Area2D" parent="."]
+[node name="Attack" type="Area2D" parent="."]
+position = Vector2(-43, 0)
+collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitLEFT"]
-position = Vector2(-43.4782, 1.05795)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
 shape = SubResource("RectangleShape2D_4y5cp")
-
-[node name="HitRight" type="Area2D" parent="."]
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitRight"]
-position = Vector2(42.3912, 1.05795)
-scale = Vector2(0.837071, 0.983496)
-shape = SubResource("RectangleShape2D_1y4wo")
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="area_exited" from="Hurtbox" to="." method="_on_hurtbox_area_exited"]
-[connection signal="area_entered" from="HitLEFT" to="." method="_on_hit_left_area_entered"]
-[connection signal="area_entered" from="HitRight" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_entered" from="HitRight" to="." method="_on_hit_right_area_entered"]
+[connection signal="area_entered" from="Attack" to="." method="_on_hit_left_area_entered"]
+[connection signal="area_exited" from="Attack" to="." method="_on_attack_area_exited"]
