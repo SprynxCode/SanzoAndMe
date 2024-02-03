@@ -16,6 +16,7 @@ var DIRECTION_FACING = 1
 var sprite_node : Node
 var player
 var enemy
+var in_range = false
 
 @export var facing_left : Vector2
 @export var facing_right : Vector2
@@ -34,6 +35,7 @@ func direction_update():
 	if velocity.x < 0:
 		$Sprite2D.flip_h = false
 		enemy.hitbox.position = enemy.facing_left
+		
 		
 	
 func _process(delta):
@@ -67,8 +69,8 @@ func _physics_process(delta):
 	# Handle jump.
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	#
-	attack()
+	if in_range:
+		attack()
 	move_and_slide()
 func movement(delta):
 		var walk = WALK_FORCE * DIRECTION_FACING
@@ -96,7 +98,7 @@ func movement(delta):
 		# Check for jumping. is_on_floor() must be called after movement code.
 		if is_on_floor() and Input.is_action_just_pressed(&"jump"):
 			velocity.y = -JUMP_SPEED
-var in_range = false
+
 func _on_hit_left_area_entered(area):
 	in_range = true
 
@@ -104,7 +106,7 @@ func _on_attack_area_exited(area):
 	in_range= false
 
 func attack():
-	if player.player_HurtCD == true and in_range:
+	if player.player_HurtCD:
 		player.player_HurtCD = false
 		player.Health -= 1
-		print("Hit left")
+		print("Hit")

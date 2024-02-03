@@ -26,7 +26,6 @@ var DIRECTION_FACING = 1
 #var attack_hitbox: Area2D
 @onready var gravity_attack = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sprite_node
-var test
 #player health
 @export var player_HurtCD: bool = true # if true, can be hurt
 @export var Health: int = 3
@@ -50,7 +49,6 @@ func direction_update():
 	
 func _physics_process(delta):
 	
-	
 	direction_update()
 	movement(delta)
 	#print(velocity.x)
@@ -65,18 +63,16 @@ func _physics_process(delta):
 
 #sprite direction when moving
 
-
+var flag = 0
 func _process(delta):
-	pass
 	
+	if player_HurtCD == false and flag == 0:
+		flag = 1
+		cooldown_start()
 	#if Health <= 0:
 		#queue_free()
 		
-func cooldown_start():
-	player_HurtCD = false
-	if player_HurtCD == false:
-		print("coodlown start")
-		$HurtCD.start()
+
 		
 func movement(delta):
 		
@@ -114,17 +110,23 @@ func movement(delta):
 			
 #####-----------------------------------------------------
 
-
-
+func cooldown_start():
+	if player_HurtCD == false:
+		print("coodlown start")
+		$HurtCD.start()
+		
+func _on_hurt_cd_timeout():
+	print("Cooldown done")
+	player_HurtCD = true
+	flag = 0
 func enemy_attack(delta):
+	
 	var player = get_parent().get_node("Character")
 	var player_pos = player.global_position
 	var enemy = get_parent().get_node("Enemy")
 	var enemy_pos = enemy.global_position
 	if player_inrange and player_HurtCD:
 		print("You are being hit!")
-		
-		cooldown_start()
 		if player_pos.x > enemy_pos.x:
 			velocity.x += 3000
 			pass
@@ -147,10 +149,6 @@ func player_attack():
 		print("Enemy attacked!")
 	elif Input.is_action_just_pressed("attack"):
 		print("Attack press")
-
-func _on_hurt_cd_timeout():
-	print("Cooldown done")
-	player_HurtCD = true
 
 
 func _on_right_collision_area_entered(area):

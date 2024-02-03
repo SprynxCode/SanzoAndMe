@@ -17,8 +17,7 @@ size = Vector2(24.9999, 105.795)
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
 script = ExtResource("1_3mrne")
-facing_left = Vector2(-43, 0)
-facing_right = Vector2(43, 0)
+facing_right = Vector2(83, 0)
 hitbox = NodePath("Attack/CollisionShape2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

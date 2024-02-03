@@ -19,8 +19,7 @@ size = Vector2(56, 92)
 collision_mask = 4
 script = ExtResource("1_d7rhq")
 hitboxP = NodePath("RightCollision/RightShape")
-facing_left = Vector2(-50, 0)
-facing_right = Vector2(50, 0)
+facing_left = Vector2(-100, 0)
 
 [node name="PlayerCamera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -24)
@@ -37,7 +36,8 @@ texture = ExtResource("2_6mfmh")
 
 [node name="RightCollision" type="Area2D" parent="."]
 position = Vector2(50, 0)
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 
 [node name="RightShape" type="CollisionShape2D" parent="RightCollision"]
 shape = SubResource("RectangleShape2D_jub3m")
