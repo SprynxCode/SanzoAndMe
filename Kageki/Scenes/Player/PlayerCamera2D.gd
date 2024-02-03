@@ -9,7 +9,7 @@ func _ready():
 	
 func update_camera_position():
 	if !player.is_on_floor():
-		self.position_smoothing_speed = 5
+		self.position_smoothing_speed = 2
 		print(self.position_smoothing_speed)
 	elif player.is_on_floor():
 		self.position_smoothing_speed = 2

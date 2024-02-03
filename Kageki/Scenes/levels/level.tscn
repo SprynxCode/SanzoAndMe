@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://3wjjxl5nf4m0"]
+[gd_scene load_steps=10 format=3 uid="uid://3wjjxl5nf4m0"]
 
 [ext_resource type="PackedScene" uid="uid://b7e2hcjqhbtl" path="res://Scenes/Player/player.tscn" id="1_1xpo5"]
 [ext_resource type="PackedScene" uid="uid://bxt2ui35o32xs" path="res://Scenes/Enemy/enemy.tscn" id="2_vl6j4"]
 [ext_resource type="Texture2D" uid="uid://h605mtu58tkh" path="res://backgorunds/Assets.png" id="4_63c7l"]
+[ext_resource type="Texture2D" uid="uid://cc1fo02lsjju8" path="res://icon.svg" id="4_eylbg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_twx5h"]
 size = Vector2(3719, 20)
@@ -35,8 +36,11 @@ texture = ExtResource("4_63c7l")
 [sub_resource type="TileSet" id="TileSet_ibjds"]
 sources/0 = SubResource("TileSetAtlasSource_yl5ng")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xfc8"]
+size = Vector2(20, 290)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dnjng"]
-size = Vector2(187.143, 32.1428)
+size = Vector2(187.143, 477.5)
 
 [node name="Node2D" type="Node2D"]
 scale = Vector2(0.7, 0.7)
@@ -64,7 +68,7 @@ position = Vector2(444, 212)
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ibjds")
 format = 2
-layer_0/tile_data = PackedInt32Array(1245174, 720896, 12, 655354, 131072, 0, 1179649, 720896, 12, 196610, 655360, 0, 1179660, 720896, 12, 1048593, 196608, 19, 1179671, 720896, 12, 720921, 131072, 0, 327713, 655360, 0, 1179682, 720896, 12, 1048611, 458752, 18, 1048616, 196608, 19, 1179693, 720896, 12, 720942, 131072, 0, 1179704, 720896, 12, 917511, 1310720, 15, 589832, 1441792, 12, 262152, 1376256, 5, 327734, 655360, 0)
+layer_0/tile_data = PackedInt32Array(1245174, 720896, 12, 655354, 131072, 0, 1179649, 720896, 12, 196610, 655360, 0, 1179660, 720896, 12, 1048593, 196608, 19, 1179671, 720896, 12, 720921, 131072, 0, 327713, 655360, 0, 1179682, 720896, 12, 1048611, 458752, 18, 1048616, 196608, 19, 1179693, 720896, 12, 720942, 131072, 0, 1179704, 720896, 12, 917511, 1310720, 15, 589832, 1441792, 12, 262152, 1376256, 5, 327734, 655360, 0, 655388, 720896, 12, 786456, 720896, 12, 917522, 720896, 12, 458795, 720896, 12)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -72,12 +76,25 @@ layer_0/tile_data = PackedInt32Array(1245174, 720896, 12, 655354, 131072, 0, 117
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(-228.571, 141.429)
+shape = SubResource("RectangleShape2D_0xfc8")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(300, 241.429)
+position = Vector2(300, 18.75)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dnjng")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2/CollisionShape2D"]
+position = Vector2(-10.8571, 7.67858)
+scale = Vector2(1.16964, 3.89509)
+texture = ExtResource("4_eylbg")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="StaticBody2D2"]
 collision_layer = 16

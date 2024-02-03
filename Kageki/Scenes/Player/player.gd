@@ -4,6 +4,11 @@ var player_inrange = false
 var player_HurtCD = true
 var enemy_inrange = false
 
+const wall_jump_pushback = 100
+const wall_slide_gravity = 100
+var is_wall_sliding = false
+const jump_power = -1000
+const gravity = 60
 const WALK_FORCE = 500
 var WALK_MAX_SPEED = 300
 const STOP_FORCE = 2300
@@ -12,8 +17,8 @@ const ATTACK_FORCE = 100
 #1 = right, -1 = left
 var DIRECTION_FACING = 1
 
-var attack_hitbox: Area2D
-@onready var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+#var attack_hitbox: Area2D
+@onready var gravity_attack = ProjectSettings.get_setting("physics/2d/default_gravity")
 var sprite_node
 
 
@@ -29,6 +34,8 @@ func _physics_process(delta):
 	#Attack Script
 	enemy_attack(delta)
 	player_attack()
+	jump()
+	wall_slide(delta)
 
 	if Input.is_action_just_pressed("move_left"):
 		DIRECTION_FACING = -1
@@ -69,8 +76,10 @@ func movement(delta):
 		move_and_slide()
 
 		# Check for jumping. is_on_floor() must be called after movement code.
-		if is_on_floor() and Input.is_action_just_pressed(&"jump"):
-			velocity.y = -JUMP_SPEED * 1
+		#if is_on_floor() and Input.is_action_just_pressed(&"jump"):
+			#velocity.y = -JUMP_SPEED * 1
+			
+			
 			
 #####-----------------------------------------------------
 
@@ -128,3 +137,30 @@ func _on_left_collision_area_entered(area):
 func _on_left_collision_area_exited(area):
 	print("In range")
 	enemy_inrange = false
+
+func jump():
+	velocity.y += gravity
+	if Input.is_action_just_pressed("jump"):
+		if is_on_floor():
+			velocity.y = jump_power
+		if is_on_wall() and Input.is_action_pressed("move_right"):
+			velocity.y = jump_power
+			velocity.x = -wall_jump_pushback
+		if is_on_wall() and Input.is_action_pressed("move_left"):
+			velocity.y = jump_power
+			velocity.x = wall_jump_pushback
+		
+func wall_slide(delta):
+	if is_on_wall() and !is_on_floor():
+		if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+			is_wall_sliding = true
+		else:
+			is_wall_sliding = false
+			
+	else:
+		is_wall_sliding = false
+		
+	if is_wall_sliding:
+		velocity.y += (wall_slide_gravity * delta)
+		velocity.y = min(velocity.y, wall_slide_gravity)
+	
