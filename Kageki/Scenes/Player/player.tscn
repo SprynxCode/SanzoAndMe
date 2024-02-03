@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7e2hcjqhbtl"]
+[gd_scene load_steps=9 format=3 uid="uid://b7e2hcjqhbtl"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_d7rhq"]
 [ext_resource type="Texture2D" uid="uid://b72maoaht7426" path="res://Scenes/Player/practicing.png" id="2_6mfmh"]
 [ext_resource type="Script" path="res://Scenes/Player/PlayerCamera2D.gd" id="2_u12y3"]
+[ext_resource type="Script" path="res://Scenes/Player/HEALTH.gd" id="4_ygoor"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2w53v"]
 radius = 26.0
@@ -63,6 +64,14 @@ shape = SubResource("RectangleShape2D_stf1o")
 [node name="HurtCD" type="Timer" parent="."]
 wait_time = 2.69
 one_shot = true
+
+[node name="HEALTH" type="Label" parent="."]
+offset_left = -18.0
+offset_top = -90.0
+offset_right = 22.0
+offset_bottom = -67.0
+theme_override_font_sizes/font_size = 50
+script = ExtResource("4_ygoor")
 
 [connection signal="area_entered" from="LeftCollision" to="." method="_on_left_collision_area_entered"]
 [connection signal="area_exited" from="LeftCollision" to="." method="_on_left_collision_area_exited"]

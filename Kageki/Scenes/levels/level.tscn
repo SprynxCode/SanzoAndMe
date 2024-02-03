@@ -62,7 +62,6 @@ shape = SubResource("RectangleShape2D_twx5h")
 debug_color = Color(0.372549, 0.537255, 0.8, 0.419608)
 
 [node name="Enemy" parent="." instance=ExtResource("2_vl6j4")]
-visible = false
 position = Vector2(444, 212)
 
 [node name="TileMap" type="TileMap" parent="."]

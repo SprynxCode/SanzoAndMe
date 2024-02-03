@@ -80,8 +80,9 @@ func movement(delta):
 			velocity.y = -JUMP_SPEED
 
 func _on_hit_left_area_entered(area):
+	HP - 1
 	print("Hit  left")
 
 func _on_hit_right_area_entered(area):
-	print("Hit rigght")
+	print("Hit right")
 
