@@ -106,7 +106,7 @@ func _on_attack_area_exited(area):
 	in_range= false
 
 func attack():
-	if player.player_HurtCD:
+	if player.player_HurtCD and in_range:
 		player.player_HurtCD = false
 		player.Health -= 1
 		print("Hit")

@@ -78,6 +78,12 @@ layer_0/tile_data = PackedInt32Array(1245174, 720896, 12, 655354, 131072, 0, 117
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 collision_layer = 4
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(-75.7143, 32.8571)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_0xfc8")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2(-228.571, 141.429)
 shape = SubResource("RectangleShape2D_0xfc8")

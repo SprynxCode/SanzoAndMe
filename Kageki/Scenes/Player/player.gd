@@ -71,27 +71,29 @@ func _process(delta):
 		cooldown_start()
 	#if Health <= 0:
 		#queue_free()
-		
+	print(velocity.x)
 
 		
 func movement(delta):
 		
 		var walk = WALK_FORCE * (Input.get_axis(&"move_left", &"move_right")) 
-		if Input.is_action_pressed("move_left")  and velocity.x > 0:
+		if Input.is_action_pressed("move_left")  and velocity.x > 0 and !is_wall_sliding:
 			velocity.x = -50
 			pass
-		if Input.is_action_pressed("move_right") and velocity.x < 0:
+		if Input.is_action_pressed("move_right") and velocity.x < 0 and !is_wall_sliding:
 			velocity.x = 50
 			pass
 			
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
-			# The velocity, slowed down a bit, and then reassigned.
 			velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
 		else:
 			velocity.x += walk * delta
 		# Clamp to the maximum horizontal movement speed.
-		velocity.x = clamp(velocity.x, -WALK_MAX_SPEED, WALK_MAX_SPEED)
+		if player_HurtCD == false or is_wall_sliding:
+			velocity.x = clamp(velocity.x, -3000, 3000)
+		else:
+			velocity.x = clamp(velocity.x, -WALK_MAX_SPEED, WALK_MAX_SPEED)
 
 		# Vertical movement code. Apply gravity.
 		velocity.y += gravity * delta
@@ -126,12 +128,14 @@ func enemy_attack(delta):
 	var enemy = get_parent().get_node("Enemy")
 	var enemy_pos = enemy.global_position
 	if player_inrange and player_HurtCD:
-		print("You are being hit!")
+		print("You are being dddddd!")
 		if player_pos.x > enemy_pos.x:
-			velocity.x += 3000
+			velocity.x += 1000
+			velocity.y += 300
 			pass
 		elif player_pos.x < enemy_pos.x:
-			velocity.x -= 3000  
+			velocity.x -= 1000
+			velocity.y += 300
 			pass
 		
 		
@@ -166,12 +170,12 @@ func jump():
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = jump_power
-		if is_on_wall() and Input.is_action_pressed("move_right"):
+		if is_on_wall_only() and Input.is_action_pressed("move_right") :
 			velocity.y = jump_power
-			velocity.x = -wall_jump_pushback
-		if is_on_wall() and Input.is_action_pressed("move_left"):
+			velocity.x -= 200
+		if is_on_wall_only() and Input.is_action_pressed("move_left") :
 			velocity.y = jump_power
-			velocity.x = wall_jump_pushback
+			velocity.x += 200
 		
 func wall_slide(delta):
 	if is_on_wall() and !is_on_floor():
